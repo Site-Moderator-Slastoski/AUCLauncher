@@ -1,0 +1,53 @@
+{
+  "name": "among-us-classic-installer",
+  "version": "1.0.1",
+  "description": "Installer for Among Us Classic",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "35.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "extract-zip": "^2.0.1",
+    "node-fetch": "^3.3.2"
+  },
+  "build": {
+  "asar": true,
+  "compression": "maximum",
+  "npmRebuild": false,
+  "nodeGypRebuild": false,
+  "removePackageScripts": true,
+  "files": [
+    "!node_modules/.cache",
+    "!node_modules/electron",
+    "!node_modules/electron-builder",
+    "!node_modules/electron-packager",
+    "!build_scripts",
+    "!tests",
+    "!README.md",
+    "!package-lock.json",
+    "!*.log"
+  ],
+  "win": {
+    "target": "nsis",
+    "icon": "auc.png"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  },
+  "mac": {
+    "target": "dmg",
+    "icon": "icon.icns"
+  },
+  "linux": {
+    "target": "AppImage",
+    "icon": "icon.png"
+  }
+}
+}

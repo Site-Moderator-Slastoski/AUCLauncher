@@ -1,0 +1,56 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Among Us Classic Installer</title>
+        <link rel="stylesheet" href="style.css">
+        <head>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
+        </head>
+    </head>
+    <body>
+        <!-- Side Navigation Bar -->
+        <div class="sidebar">
+            <div class="spacer"></div> <!-- Spacer to push buttons below title bar -->
+            <button class="nav-btn" onclick="navigateTo('index.html')" title="Home">
+                <i class="fas fa-home"></i>
+            </button>
+            <button class="nav-btn" onclick="navigateTo('settings.html')" title="Settings">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+
+        <!-- Custom Title Bar -->
+        <div class="title-bar">
+            <div class="title">Among Us: Classic</div>
+            <div class="window-controls">
+                <button id="minimizeBtn">_</button>
+                <button id="closeBtn">X</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container">
+            <h1>Welcome to Among Us: Classic Launcher</h1>
+            <p id="getStartedText">Get started by pressing the "Install" button!</p>
+            
+            <!-- Install and Launch Buttons -->
+            <button id="installButton">Install</button>
+            <button id="launchButton" style="display: none;">Launch</button>
+
+    <!-- Progress Bar Container -->
+            <div id="progressContainer" style="display: none;">
+                 <div id="progress-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <script>
+            function navigateTo(page) {
+                window.location.href = page;
+            }
+        </script>
+
+        <script src="renderer.js"></script>
+    </body>
+    </html>

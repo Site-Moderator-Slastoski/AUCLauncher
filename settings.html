@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Side Navigation Bar -->
+    <div class="sidebar">
+        <div class="spacer"></div> <!-- Spacer to push buttons below title bar -->
+        <button class="nav-btn" onclick="navigateTo('index.html')" title="Home">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="nav-btn" onclick="navigateTo('settings.html')" title="Settings">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+    
+    <!-- Custom Title Bar -->
+    <div class="title-bar">
+        <div class="title">Settings</div>
+        <div class="window-controls">
+            <button id="minimizeBtn">_</button>
+            <button id="closeBtn">X</button>
+        </div>
+    </div>
+
+    <!-- Modernized Settings Container -->
+    <div class="settings-container">
+        <h1>Settings</h1>
+
+        <div class="setting-item">
+            <label for="regionSelect">Download Region</label>
+            <select id="regionSelect">
+                <option value="europe">Server 1</option>
+                <option value="south-america">Server 2 (experimental)</option>
+            </select>
+        </div>
+        <button class="saveButton" onclick="saveSettings()">Save</button>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        // Save the selected region to localStorage when the user clicks Save
+        function saveSettings() {
+            const selectedRegion = document.getElementById("regionSelect").value;
+            localStorage.setItem("selectedRegion", selectedRegion); // Save region in localStorage
+            navigateTo("index.html"); // Redirect back to the index page
+        }
+
+        document.getElementById("minimizeBtn").addEventListener("click", () => {
+            ipcRenderer.send("minimizeWindow");
+        });
+
+        document.getElementById("closeBtn").addEventListener("click", () => {
+            ipcRenderer.send("closeWindow");
+        });
+    </script>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
