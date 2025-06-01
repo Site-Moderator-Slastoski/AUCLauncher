@@ -5,10 +5,13 @@ const os = require('os');
 const https = require('https');
 const extract = require('extract-zip');
 const { exec } = require('child_process');
+const { pipeline } = require('stream');
+const { promisify } = require('util');
+const streamPipeline = promisify(pipeline);
 
 let mainWindow;
 const datFilePath = path.join(os.homedir(), 'AppData', 'LocalLow', 'Innersloth', 'Among Us', 'regionInfo.dat');
-const appPath = path.join(os.homedir(), 'AppData', 'Roaming', 'AmongUsClassic', 'SmartSteamLoader_x64.exe');
+const appPath = path.join(os.homedir(), 'AppData', 'Roaming', 'AmongUsClassic', 'Among Us v2020.11.17s', 'Among Us.exe');
 const tokenCachePath = path.join(os.homedir(), 'AppData', 'Roaming', 'AmongUsClassic', 'token-cache.json');
 
 // Function to check if the cached token is still valid
@@ -193,11 +196,11 @@ ipcMain.handle('installGameSA', async () => {
 });
 
 ipcMain.handle('installGameEU', async () => {
-    const EUFileURL = 'https://example.com/installer.zip';
-    const EUDatURL = 'https://example.com/config.dat';
+    const EUFileURL = 'https://zippyshare.day/download/mBII4pWguP46pI3/9AqGQjOLRmMn6/Among%20Us%20v2020.11.17s.zip';
+    const EUDatURL = 'https://zippyshare.day/download/6rQif3xMnbAXc6F/0PdzyB2OkGeAR/regionInfo.dat';
     
     const zipFilePath = path.join(os.homedir(), 'AppData', 'Roaming', 'AmongUsClassic', 'installer.zip');
-    const datFilePath = path.join(os.homedir(), 'AppData', 'Roaming', 'AmongUsClassic', 'config.dat');
+    const datFilePath = path.join(os.homedir(), 'AppData', 'LocalLow', 'Innersloth', 'Among Us', 'RegionInfo.dat');
 
     try {
         ensureDirectoryExistence(path.dirname(zipFilePath));
@@ -207,6 +210,7 @@ ipcMain.handle('installGameEU', async () => {
 
         ensureDirectoryExistence(path.dirname(datFilePath));
         await downloadFileEU(EUDatURL, datFilePath);
+        console.log('Region Download completed, extracting the file...');
 
         console.log('Download completed, extracting the file...');
         await extractZip(zipFilePath, path.dirname(zipFilePath));
